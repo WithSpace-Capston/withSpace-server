@@ -14,12 +14,14 @@ import hansung.cse.withSpace.responsedto.member.MemberSearchByNameDto;
 import hansung.cse.withSpace.responsedto.team.TeamSearchByNameDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.text.similarity.JaroWinklerDistance;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,11 +34,20 @@ public class MemberService {
     private final ScheduleService scheduleService;
     private final PageService pageService;
 
-//    private final SpaceRepository spaceRepository;
-//    private final ScheduleRepository scheduleRepository;
-//    private final PageRepository pageRepository;
 
-    //final private PasswordEncoder passwordEncoder; //비밀번호 암호화
+
+    @Transactional
+    public void setMemberActive(UUID uuid) {
+        Member member = findByUuid(uuid);
+        member.setStatus(true);
+    }
+
+    @Transactional
+    public void setMemberInActive(UUID uuid) {
+        Member member = findByUuid(uuid);
+        member.setStatus(false);
+    }
+
 
     public Member findOne(Long memberId) {
         return memberRepository.findById(memberId)
@@ -173,4 +184,6 @@ public class MemberService {
     public void save(Member member) {
         memberRepository.save(member);
     }
+
+
 }

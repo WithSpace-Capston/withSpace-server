@@ -52,8 +52,7 @@ public class JwtTokenUtil {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Member member = memberService.findByEmail(userDetails.getUsername()); // 로그인한 유저의 회원 정보를 가져옴
-        //Date now = new Date();
-        //Date expiryDate = new Date(now.getTime() + expiration)
+
 
 
         //로그인시마다 이전토큰 무효화

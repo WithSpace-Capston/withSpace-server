@@ -74,6 +74,8 @@ public class Member {   //회원
         this.createdAt = now;
         this.updatedAt = now;
 
+        this.status = false;
+
         //스페이스 생성
         MemberSpace memberSpace = new MemberSpace(this);
         this.memberSpace = memberSpace;
@@ -100,5 +102,9 @@ public class Member {   //회원
 
     public void changeUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }
